@@ -9,5 +9,5 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # def get_absolute_url(self):
-    #     return reverse("community:post_detail", args=[self.pk])
+    def get_absolute_url(self):
+        return reverse("community:post_detail", args=[self.pk])
