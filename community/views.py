@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Post
@@ -25,8 +26,11 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     fields = ['title', 'content']
     template_name = 'community/post_form.html'
 
-def post_delete(request):
-    pass
+def post_delete(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        post.delete()
+        return HttpResponseRedirect('/')
 
 def post_like(request):
     pass

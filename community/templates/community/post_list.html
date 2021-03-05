@@ -19,7 +19,11 @@
                     {% for post in post_list %}
                         <tr>
                             <td>{{ post.id }}</td>
-                            <td>{{ post.title }}</td>
+                            <td>
+                                <a href={% url 'community:post_detail' post.pk %} style="text-decoration: none; color: black;">
+                                    {{ post.title }}
+                                </a>
+                            </td>
                             <td>{{ post.author }}</td>
                             <td>39</td>
                         </tr>

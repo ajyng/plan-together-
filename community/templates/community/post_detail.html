@@ -15,7 +15,37 @@
                     </div>
 
                     <div class="card-body">
-                        {{ post.content }}
+                        <div class="mb-4">{{ post.content }}</div>
+                        
+                        <a href="{% url 'community:post_update' post.pk %}" class="btn btn-secondary">수정</a>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            삭제
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ModalLabel">{{ post.title }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        정말 삭제하시겠습니까?
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                        <form action="{% url 'community:post_delete' post.pk %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="submit" class="btn btn-primary" value="삭제"></input>
+                                        </form>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="card-footer">
