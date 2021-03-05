@@ -22,7 +22,7 @@ class PostDetailView(DetailView):
 
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = '__all__'
+    fields = ['title', 'content']
     template_name = 'community/post_form.html'
 
 def post_delete(request):
