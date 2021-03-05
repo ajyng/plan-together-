@@ -6,7 +6,7 @@ from .forms import PostForm
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     form_class = PostForm
-    template_name = '_form.html'
+    template_name = 'community/post_form.html'
 
     def form_valid(self, form):
         post = form.save(commit=False)
@@ -23,7 +23,7 @@ class PostDetailView(DetailView):
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = '__all__'
-    template_name = '_form.html'
+    template_name = 'community/post_form.html'
 
 def post_delete(request):
     pass
