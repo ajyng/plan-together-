@@ -22,9 +22,14 @@
         </nav>
 
         {% if user.is_authenticated %}
+            <div style="margin-right: 8px;">
+                <a href="{% url 'accounts:profile' request.user.username %}" style="text-decoration: none; color: black; font-weight: bold;">
+                    {{ request.user.username }}
+                </a>님 환영합니다.
+            </div>
             <a class="btn btn-outline-primary" href="{% url 'accounts:logout' %}">Logout</a>
         {% else %}
-            <a class="btn btn-outline-primary mr-3" href="{% url 'accounts:login' %}" style="margin-right: 8px">Login</a>
+            <a class="btn btn-outline-primary" href="{% url 'accounts:login' %}" style="margin-right: 8px">Login</a>
             <a class="btn btn-outline-primary" href="{% url 'accounts:signup' %}">Sign up</a>
         {% endif %}
 

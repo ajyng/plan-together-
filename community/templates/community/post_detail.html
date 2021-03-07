@@ -17,10 +17,12 @@
                     <div class="card-body">
                         <div class="mb-4">{{ post.content }}</div>
                         
-                        <a href="{% url 'community:post_update' post.pk %}" class="btn btn-secondary">수정</a>
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            삭제
-                        </button>
+                        {% if post.author == request.user %}
+                            <a href="{% url 'community:post_update' post.pk %}" class="btn btn-secondary">수정</a>
+                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                삭제
+                            </button>
+                        {% endif %}
 
                         <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView, UpdateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
 from .forms import PostForm
 
@@ -21,16 +21,31 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
 
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["author"] = self.get_object().author
+        return context
+
+class PostUpdateView(UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
     template_name = 'community/post_form.html'
 
-def post_delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
-        post.delete()
-        return HttpResponseRedirect('/')
+    def test_func(self):
+        return self.request.user == self.get_object().author
+
+class PostDeleteView(UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = reverse_lazy('community:post_list')
+
+    def test_func(self):
+        return self.request.user == self.get_object().author
+
+# def post_delete(request, pk):
+#     post = get_object_or_404(Post, pk=pk)
+#     if request.method == 'POST':
+#         post.delete()
+#         return HttpResponseRedirect('/')
 
 def post_like(request):
     pass
