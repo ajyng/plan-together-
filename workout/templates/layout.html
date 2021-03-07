@@ -15,11 +15,11 @@
 <body>
 
     <header class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-5 bg-body border-bottom shadow-sm">
-        <a href="/" class="h5 my-0 me-md-auto fw-normal" style="font-size: 26px; text-decoration: none; color: black;">Workout together!</a>
-        <nav class="my-2 my-md-0 me-md-3">
+        <a href="/" class="h5 my-0 me-md-auto fw-normal" style="font-size: 26px; text-decoration: none; color: black;"><strong>Workout together!</strong></a>
+        {% comment %} <nav class="my-2 my-md-0 me-md-3">
             <a class="p-2 text-dark" href="#">Support</a>
             <a class="p-2 text-dark" href="#">Pricing</a>
-        </nav>
+        </nav> {% endcomment %}
 
         {% if user.is_authenticated %}
             <div style="margin-right: 8px;">
@@ -32,7 +32,6 @@
             <a class="btn btn-outline-primary" href="{% url 'accounts:login' %}" style="margin-right: 8px">Login</a>
             <a class="btn btn-outline-primary" href="{% url 'accounts:signup' %}">Sign up</a>
         {% endif %}
-
     </header>
     
     <main class="container">
@@ -42,10 +41,10 @@
 
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
             <div class="row">
-                <div class="col-12 col-md">
-                    <small class="d-block mb-3 text-muted">&copy; @ajyng</small>
+                <div class="col-12 col-md" style="text-align: center">
+                    <small class="d-block mb-3 text-muted">&copy; ajyng</small>
                 </div>
-                <div class="col-6 col-md">
+                {% comment %} <div class="col-6 col-md">
                     <h5>Features</h5>
                     <ul class="list-unstyled text-small">
                     <li><a class="link-secondary" href="#">Cool stuff</a></li>
@@ -65,7 +64,7 @@
                     <li><a class="link-secondary" href="#">Team</a></li>
                     <li><a class="link-secondary" href="#">Locations</a></li>
                     </ul>
-                </div>
+                </div> {% endcomment %}
             </div>
         </footer>
     </main>

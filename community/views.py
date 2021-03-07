@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post
@@ -41,11 +43,13 @@ class PostDeleteView(UserPassesTestMixin, DeleteView):
     def test_func(self):
         return self.request.user == self.get_object().author
 
-# def post_delete(request, pk):
-#     post = get_object_or_404(Post, pk=pk)
-#     if request.method == 'POST':
-#         post.delete()
-#         return HttpResponseRedirect('/')
+@login_required
+def post_apply(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.apply_user.add(request.user)
+    redirect_url = request.META.get("HTTP_REFERER", "root")
+    return redirect(redirect_url)
 
-def post_like(request):
-    pass
+
+
+    

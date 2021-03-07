@@ -3,14 +3,12 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
 from django.shortcuts import resolve_url
+from community.models import Post
 
 class User(AbstractUser):
     class GenderChoices(models.TextChoices):
         MALE = "M", "남성"
         FEMALE = "F", "여성"
-    
-    follower_set = models.ManyToManyField("self", blank=True)
-    following_set = models.ManyToManyField("self", blank=True)
 
     email = models.EmailField(blank=True)
     bio = models.TextField(max_length=250, blank=True)
