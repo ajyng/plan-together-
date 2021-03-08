@@ -27,6 +27,7 @@
                     {{ request.user.username }}
                 </a>님 환영합니다.
             </div>
+            <a class="btn btn-outline-primary" href="{% url 'accounts:profile' user %}" style="margin-right: 8px;">MY PAGE</a>
             <a class="btn btn-outline-primary" href="{% url 'accounts:logout' %}">Logout</a>
         {% else %}
             <a class="btn btn-outline-primary" href="{% url 'accounts:login' %}" style="margin-right: 8px">Login</a>

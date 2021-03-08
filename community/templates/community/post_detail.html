@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% load community_tags %}
 
 {% block content %}
 
@@ -11,6 +12,7 @@
                         {{ post.title }}
                         <small class="text-muted">
                             {{ post.author }}
+                            조회수: {{ post.view_count }}
                         </small>
                     </div>
 
@@ -20,17 +22,25 @@
                             <img src="{{ post.image.url }}" alt="" width="100%" />
                         {% endif %}
                         <div class="mb-4">{{ post.content }}</div>
-                        
+                    
                         {% if post.author == request.user %}
                             <a href="{% url 'community:post_update' post.pk %}" class="btn btn-secondary">수정</a>
                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete">
                                 삭제
                             </button>
                         {% else %}
-                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#apply">
-                                참가신청
-                            </button>
-                            현재 참가자 수: {{ post.apply_user.all.count }}
+                            {% if post.apply_user.all.count == post.total_user %}
+                                <b>인원이 마감되었습니다.</b>
+                            {% else %}
+                                {% if post|is_applied:request.user %}
+                                    참가신청이 완료되었습니다.
+                                {% else %}
+                                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#apply">
+                                        참가신청
+                                    </button>
+                                {% endif %}
+                                현재 참가자 수: {{ post.apply_user.all.count }} / {{ post.total_user }}
+                            {% endif %}
                         {% endif %}
 
                         <!-- 삭제 Modal -->

@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-sm-6 offset-sm-3" style="text-align: center;">
                 
-                <div>
+                <div class="mb-5">
                     <svg class="bd-placeholder-img rounded-circle mb-4"
                         width="140" height="140"
                         xmlns="http://www.w3.org/2000/svg"
@@ -22,8 +22,12 @@
                     <p>{{ user.bio }}</p>
                 </div>
 
-
-
+                <p style="font-size: 1.3em; font-weight: bold;">Program List</p>
+                {% for post in user.apply_user_post.all %}
+                    <div>
+                        <a href="{% url 'community:post_detail' post.pk %}" style="text-decoration: none; color: black;">{{ post.title }}</a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>
