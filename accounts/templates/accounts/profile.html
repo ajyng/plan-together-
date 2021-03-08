@@ -22,12 +22,27 @@
                     <p>{{ user.bio }}</p>
                 </div>
 
-                <p style="font-size: 1.3em; font-weight: bold;">Program List</p>
-                {% for post in user.apply_user_post.all %}
-                    <div>
-                        <a href="{% url 'community:post_detail' post.pk %}" style="text-decoration: none; color: black;">{{ post.title }}</a>
-                    </div>
-                {% endfor %}
+                <div class="mb-3">
+                    <p style="font-size: 1.3em; font-weight: bold;">My Program</p>
+                    {% for post in user.author_post.all %}
+                        <div>
+                            <a href="{% url 'community:post_detail' post.pk %}" style="text-decoration: none; color: black;">
+                                {{ post.title }} <small class="text-muted">(현재 {{ post.apply_user.count }}명 지원!)</small>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <p style="font-size: 1.3em; font-weight: bold;">Program List</p>
+                    {% for post in user.apply_user_post.all %}
+                        <div>
+                            <a href="{% url 'community:post_detail' post.pk %}" style="text-decoration: none; color: black;">
+                                {{ post.title }} <small class="text-muted">({{ post.apply_user.count }} / {{ post.total_user }})</small>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
